@@ -1,0 +1,53 @@
+{
+  "env": {
+    "commonjs": true,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  // "parser": "babel-eslint",
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2019
+  },
+  "rules": {
+    "no-console": "warn",
+    "no-undef": ["warn"],
+    "semi": ["error", "never"],
+    "quotes": ["warn", "single"],
+    "no-unused-vars": "warn",
+    "no-extra-semi": "error",
+    "no-const-assign": "warn",
+    "no-this-before-super": "warn",
+    "no-unreachable": "warn",
+    "constructor-super": "warn",
+    "valid-typeof": "warn",
+    "no-new-func": "error",
+    "no-eval": "error",
+    "no-empty": "off"
+  },
+  "globals": {
+    "theone": "readonly",
+    "Int": "readonly",
+    "wordLib": "readonly",
+    "getDb": "readonly",
+    "rtFail": "readonly",
+    "rtError": "readonly",
+    "rtSuccess": "readonly",
+    "requestError": "readonly",
+    "isRtObj": "readonly",
+    "isRtFail": "readonly",
+    "isRtError": "readonly",
+    "isRtSuccess": "readonly",
+    "callService": "readonly",
+    "callCorpus": "readonly",
+    "callSelf": "readonly",
+    "callDbTrans": "readonly",
+    "sendMail": "readonly",
+    "sendSMS": "readonly",
+    "hasOwnPropertySafe": "readonly"
+  }
+}

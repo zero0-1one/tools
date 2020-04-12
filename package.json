@@ -1,0 +1,27 @@
+{
+  "name": "zo-tools",
+  "version": "1.0.0",
+  "description": "some tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha ./test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zero0-1one/tools.git"
+  },
+  "keywords": [
+    "tools"
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-like": "^1.1.1",
+    "mocha": "^5.2.0"
+  },
+  "author": "zero0-1one",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zero0-1one/tools/issues"
+  },
+  "homepage": "https://github.com/zero0-1one/tools#readme"
+}
