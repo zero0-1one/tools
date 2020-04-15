@@ -56,7 +56,7 @@ describe('baseTools_test', function () {
       })
     waiting.resolve()
     await waiting
-    expect(status).to.be.equal('resolved').to.be.equal(waiting.status)
+    expect(status).to.be.equal('resolved')
   })
 
   it('createWaiting reject', async function () {
@@ -71,7 +71,7 @@ describe('baseTools_test', function () {
       })
     waiting.reject()
     await waiting.catch(() => {})
-    expect(status).to.be.equal('rejected').to.be.equal(waiting.status)
+    expect(status).to.be.equal('rejected')
   })
 
   it('createWaiting timeout', async function () {
@@ -82,11 +82,78 @@ describe('baseTools_test', function () {
         status = 'resolved'
       })
       .catch(e => {
-        status = e
+        status = e.message
       })
     await base.sleep(300)
     waiting.resolve()
-    expect(status).to.be.equal('timeout')
-    expect(waiting.status).to.be.equal('rejected')
+    expect(status).to.be.equal('waiting timeout')
+  })
+
+  it('doOrder 不相关', async function () {
+    let owner = {}
+    let order = []
+    await Promise.all([
+      base.doOrder('a', owner, async () => {
+        await base.sleep(100)
+        order.push('a')
+      }),
+      base.doOrder('b', owner, async () => {
+        order.push('b')
+      })
+    ])
+    expect(order).to.deep.equal(['b', 'a'])
+  })
+
+  it('doOrder 相关', async function () {
+    let owner = {}
+    let order = []
+    await Promise.all([
+      base.doOrder('a', owner, async () => {
+        await base.sleep(100)
+        order.push('a')
+      }),
+      base.doOrder('a', owner, async () => {
+        order.push('b')
+      })
+    ])
+    expect(order).to.deep.equal(['a', 'b'])
+  })
+
+  it('doOrder 超时', async function () {
+    let owner = {}
+    let order = []
+    let results = await Promise.all([
+      base.doOrder('a', owner, async () => {
+        await base.sleep(100)
+        order.push('a')
+        return 'a'
+      }),
+      base.doOrder(
+        'a',
+        owner,
+        async () => {
+          order.push('b')
+          return 'b'
+        },
+        200
+      ),
+      base
+        .doOrder(
+          'a',
+          owner,
+          async () => {
+            order.push('c')
+            return 'c'
+          },
+          10
+        )
+        .catch(e => e.message),
+      base.doOrder('a', owner, async () => {
+        order.push('d')
+        return 'd'
+      })
+    ]).catch(() => {})
+    expect(results).to.deep.equal(['a', 'b', 'doOrder timeout', 'd'])
+    expect(order).to.deep.equal(['a', 'b', 'd'])
   })
 })
