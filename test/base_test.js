@@ -43,4 +43,50 @@ describe('baseTools_test', function () {
     expect(base.objToArray(obj)).to.be.deep.equal(array)
     expect(base.objToArray(obj, ['a', 'c'])).to.be.deep.equal([array[0], array[2]])
   })
+
+  it('createWaiting resolve', async function () {
+    let waiting = base.createWaiting()
+    let status = ''
+    waiting
+      .then(() => {
+        status = 'resolved'
+      })
+      .catch(() => {
+        status = 'rejected'
+      })
+    waiting.resolve()
+    await waiting
+    expect(status).to.be.equal('resolved').to.be.equal(waiting.status)
+  })
+
+  it('createWaiting reject', async function () {
+    let waiting = base.createWaiting()
+    let status = ''
+    waiting
+      .then(() => {
+        status = 'resolved'
+      })
+      .catch(() => {
+        status = 'rejected'
+      })
+    waiting.reject()
+    await waiting.catch(() => {})
+    expect(status).to.be.equal('rejected').to.be.equal(waiting.status)
+  })
+
+  it('createWaiting timeout', async function () {
+    let waiting = base.createWaiting(100)
+    let status = ''
+    waiting
+      .then(() => {
+        status = 'resolved'
+      })
+      .catch(e => {
+        status = e
+      })
+    await base.sleep(300)
+    waiting.resolve()
+    expect(status).to.be.equal('timeout')
+    expect(waiting.status).to.be.equal('rejected')
+  })
 })
