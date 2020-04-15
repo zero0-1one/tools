@@ -27,4 +27,20 @@ describe('baseTools_test', function () {
     expect(base.deepEqual(a, c)).to.be.false
     expect(base.deepEqual(b, d)).to.be.false
   })
+
+  it('arrayToObj  objToArray', function () {
+    let array = [
+      { key: 'a', val: 1 },
+      { key: 'b', val: 2 },
+      { key: 'c', val: 3 }
+    ]
+    let obj = {
+      a: { key: 'a', val: 1 },
+      b: { key: 'b', val: 2 },
+      c: { key: 'c', val: 3 }
+    }
+    expect(base.arrayToObj(array, 'key')).to.be.deep.equal(obj)
+    expect(base.objToArray(obj)).to.be.deep.equal(array)
+    expect(base.objToArray(obj, ['a', 'c'])).to.be.deep.equal([array[0], array[2]])
+  })
 })
