@@ -32,12 +32,12 @@ describe('baseTools_test', function () {
     let array = [
       { key: 'a', val: 1 },
       { key: 'b', val: 2 },
-      { key: 'c', val: 3 }
+      { key: 'c', val: 3 },
     ]
     let obj = {
       a: { key: 'a', val: 1 },
       b: { key: 'b', val: 2 },
-      c: { key: 'c', val: 3 }
+      c: { key: 'c', val: 3 },
     }
     expect(base.arrayToObj(array, 'key')).to.be.deep.equal(obj)
     expect(base.objToArray(obj)).to.be.deep.equal(array)
@@ -99,7 +99,7 @@ describe('baseTools_test', function () {
       }),
       base.doOrder('b', owner, async () => {
         order.push('b')
-      })
+      }),
     ])
     expect(order).to.deep.equal(['b', 'a'])
   })
@@ -114,7 +114,7 @@ describe('baseTools_test', function () {
       }),
       base.doOrder('a', owner, async () => {
         order.push('b')
-      })
+      }),
     ])
     expect(order).to.deep.equal(['a', 'b'])
   })
@@ -151,9 +151,15 @@ describe('baseTools_test', function () {
       base.doOrder('a', owner, async () => {
         order.push('d')
         return 'd'
-      })
+      }),
     ]).catch(() => {})
     expect(results).to.deep.equal(['a', 'b', 'doOrder timeout', 'd'])
     expect(order).to.deep.equal(['a', 'b', 'd'])
+  })
+
+  it.only('format', function () {
+    let exp = 'xxx a xxx b xxx a'
+    expect(base.format('xxx {1} xxx {2} xxx {1}', 'a', 'b')).to.be.equal(exp)
+    expect(base.format('xxx {a} xxx {b} xxx {a}', { a: 'a', b: 'b' })).to.be.equal(exp)
   })
 })

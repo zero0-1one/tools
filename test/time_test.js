@@ -4,7 +4,7 @@ const expect = chai.expect
 chai.use(require('chai-like'))
 
 describe('timeTools_test', function () {
-  it.only('timeAgo', function () {
+  it('timeAgo', function () {
     let now = Date.now()
     expect(time.timeAgo(now)).to.be.equal('刚刚')
     expect(time.timeAgo(now - 60 * 1000)).to.be.equal('1分钟前')
