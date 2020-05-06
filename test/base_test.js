@@ -157,7 +157,7 @@ describe('baseTools_test', function () {
     expect(order).to.deep.equal(['a', 'b', 'd'])
   })
 
-  it.only('format', function () {
+  it('format', function () {
     let exp = 'xxx a xxx b xxx a'
     expect(base.format('xxx {1} xxx {2} xxx {1}', 'a', 'b')).to.be.equal(exp)
     expect(base.format('xxx {a} xxx {b} xxx {a}', { a: 'a', b: 'b' })).to.be.equal(exp)

@@ -4,6 +4,13 @@ const expect = chai.expect
 chai.use(require('chai-like'))
 
 describe('timeTools_test', function () {
+  it('timeAgo ', function () {
+    time.setTimeEpoch(time.APP_EPOCH, true)
+    expect(() => time.dayIdx()).to.throw()
+    time.setTimeEpoch(time.APP_EPOCH, false)
+    expect(() => time.dayIdx()).to.not.throw()
+  })
+
   it('timeAgo', function () {
     let now = Date.now()
     expect(time.timeAgo(now)).to.be.equal('刚刚')
