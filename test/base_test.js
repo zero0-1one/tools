@@ -5,6 +5,12 @@ const expect = chai.expect
 chai.use(require('chai-like'))
 
 describe('baseTools_test', function () {
+  it('mid', function () {
+    expect(base.mid(-2, -10, 5)).to.be.equal(-2)
+    expect(base.mid(-2, 3, 5)).to.be.equal(3)
+    expect(base.mid(-2, 10, 5)).to.be.equal(5)
+  })
+
   it('deepCopy', function () {
     let a = [1, null, 2, { a: 1, b: 2, c: ['a', 1] }]
     let b = [1, null, 2, { b: 2, c: ['a', 1], a: 1 }]
@@ -161,5 +167,21 @@ describe('baseTools_test', function () {
     let exp = 'xxx a xxx b xxx a'
     expect(base.format('xxx {1} xxx {2} xxx {1}', 'a', 'b')).to.be.equal(exp)
     expect(base.format('xxx {a} xxx {b} xxx {a}', { a: 'a', b: 'b' })).to.be.equal(exp)
+  })
+
+  it.only('objGet, objSet', function () {
+    let obj = { a: 1, b: ['c', { d: 2 }, 'e'] }
+    expect(base.objGet(obj, 'a')).to.be.equal(1)
+    expect(base.objGet(obj, 'b.1')).to.deep.equal({ d: 2 })
+    expect(base.objGet(obj, 'x')).to.be.undefined
+    expect(base.objGet(obj, 'b/2', '/')).to.be.equal('e')
+
+    base.objSet(obj, 'x', 'x')
+    base.objSet(obj, 'b.1.y', 'y')
+    base.objSet(obj, 'b/2', [1, 2, 3], '/')
+
+    expect(base.objGet(obj, 'x')).to.be.equal('x')
+    expect(base.objGet(obj, 'b.1.y')).to.be.equal('y')
+    expect(base.objGet(obj, 'b.2')).to.deep.equal([1, 2, 3])
   })
 })
