@@ -11,6 +11,12 @@ describe('baseTools_test', function () {
     expect(base.mid(-2, 10, 5)).to.be.equal(5)
   })
 
+  it.only('mid with padding', function () {
+    expect(base.mid(10, 60, 110, 20)).to.equal(60)
+    expect(base.mid(10, 200, 110, 20)).to.below(base.mid(10, 430, 110, 20))
+    expect(base.mid(10, -100, 110, 20)).to.above(base.mid(10, -230, 110, 20))
+  })
+
   it('deepCopy', function () {
     let a = [1, null, 2, { a: 1, b: 2, c: ['a', 1] }]
     let b = [1, null, 2, { b: 2, c: ['a', 1], a: 1 }]
@@ -169,7 +175,7 @@ describe('baseTools_test', function () {
     expect(base.format('xxx {a} xxx {b} xxx {a}', { a: 'a', b: 'b' })).to.be.equal(exp)
   })
 
-  it.only('objGet, objSet', function () {
+  it('objGet, objSet', function () {
     let obj = { a: 1, b: ['c', { d: 2 }, 'e'] }
     expect(base.objGet(obj, 'a')).to.be.equal(1)
     expect(base.objGet(obj, 'b.1')).to.deep.equal({ d: 2 })
