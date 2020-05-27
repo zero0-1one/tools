@@ -11,7 +11,7 @@ describe('baseTools_test', function () {
     expect(base.mid(-2, 10, 5)).to.be.equal(5)
   })
 
-  it.only('mid with padding', function () {
+  it('mid with padding', function () {
     expect(base.mid(10, 60, 110, 20)).to.equal(60)
     expect(base.mid(10, 200, 110, 20)).to.below(base.mid(10, 430, 110, 20))
     expect(base.mid(10, -100, 110, 20)).to.above(base.mid(10, -230, 110, 20))
@@ -189,5 +189,15 @@ describe('baseTools_test', function () {
     expect(base.objGet(obj, 'x')).to.be.equal('x')
     expect(base.objGet(obj, 'b.1.y')).to.be.equal('y')
     expect(base.objGet(obj, 'b.2')).to.deep.equal([1, 2, 3])
+  })
+
+  it('repeatStr', function () {
+    expect(base.repeatStr('a', 0)).to.be.equal('')
+    expect(base.repeatStr('a', 1)).to.be.equal('a')
+    expect(base.repeatStr('a', 5)).to.be.equal('aaaaa')
+
+    expect(base.repeatStr('a', 0, ',')).to.be.equal('')
+    expect(base.repeatStr('a', 1, ',')).to.be.equal('a')
+    expect(base.repeatStr('a', 5, ',')).to.be.equal('a,a,a,a,a')
   })
 })
