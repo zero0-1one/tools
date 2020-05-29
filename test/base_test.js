@@ -200,4 +200,22 @@ describe('baseTools_test', function () {
     expect(base.repeatStr('a', 1, ',')).to.be.equal('a')
     expect(base.repeatStr('a', 5, ',')).to.be.equal('a,a,a,a,a')
   })
+
+  it.only('forCycle', function () {
+    let array = [...'abcdefghijklmnop']
+    let walk = []
+    base.forCycle(array, 0, v => walk.push(v))
+    expect(walk.join('')).to.be.equal('abcdefghijklmnop')
+
+    walk = []
+    base.forCycle(array, 2, v => walk.push(v))
+    expect(walk.join('')).to.be.equal('cdefghijklmnopab')
+
+    walk = []
+    base.forCycle(array, 2, v => {
+      walk.push(v)
+      if (walk.length >= 3) return 'break'
+    })
+    expect(walk.join('')).to.be.equal('cde')
+  })
 })
