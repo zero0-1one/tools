@@ -201,7 +201,7 @@ describe('baseTools_test', function () {
     expect(base.repeatStr('a', 5, ',')).to.be.equal('a,a,a,a,a')
   })
 
-  it.only('forCycle', function () {
+  it('forCycle', function () {
     let array = [...'abcdefghijklmnop']
     let walk = []
     base.forCycle(array, 0, v => walk.push(v))
