@@ -3,7 +3,7 @@ const chai = require('chai')
 const expect = chai.expect
 chai.use(require('chai-like'))
 
-describe.only('fileTools_test', function () {
+describe('fileTools_test', function () {
   it('pathJoin', function () {
     let path = file.pathJoin(__dirname, 'file_test.js')
     expect(path).to.be.equal(__filename)

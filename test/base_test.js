@@ -217,4 +217,10 @@ describe('baseTools_test', function () {
     })
     expect(walk.join('')).to.be.equal('cde')
   })
+
+  it('createArray', function () {
+    expect(base.createArray(5, i => i * 2)).to.deep.equal([0, 2, 4, 6, 8])
+
+    expect(base.createArray(5, (i, a) => (i > 0 ? a[i - 1] + 5 : 1))).to.deep.equal([1, 6, 11, 16, 21])
+  })
 })
