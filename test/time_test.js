@@ -55,4 +55,17 @@ describe('timeTools_test', function () {
     expect(time.monthTimeOutS(time3)).to.be.equal(time.DAY_S * 3 + time.DAY_S / 2)
     expect(time.monthTimeOutMS(time3)).to.be.equal(time.DAY_MS * 3 + time.DAY_MS / 2)
   })
+
+  describe('dateFormat', function () {
+    const timeStr1 = '2020-09-27 12:00:00.001'
+    const timeStr2 = '2020-09-27 12:00:00.123'
+
+    it('dateFormat need pad 0', function () {
+      expect(time.dateFormat('yyyyMMddhhmmssS', new Date(timeStr1))).to.be.equal('20200927120000001')
+    })
+
+    it('dateFormat do not need pad 0', function () {
+      expect(time.dateFormat('yyyyMMddhhmmssS', new Date(timeStr2))).to.be.equal('20200927120000123')
+    })
+  })
 })
