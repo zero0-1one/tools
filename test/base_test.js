@@ -223,4 +223,26 @@ describe('baseTools_test', function () {
 
     expect(base.createArray(5, (i, a) => (i > 0 ? a[i - 1] + 5 : 1))).to.deep.equal([1, 6, 11, 16, 21])
   })
+
+  it('callTryCatchSync', function () {
+    let noError = a => {
+      return a
+    }
+    let throwError = a => {
+      throw a
+    }
+    expect(base.callTryCatchSync(noError, 123)).to.deep.equal([undefined, 123])
+    expect(base.callTryCatchSync(throwError, 123)).to.deep.equal([123, undefined])
+  })
+
+  it('callTryCatch', async function () {
+    let noError = async a => {
+      return a
+    }
+    let throwError = async a => {
+      throw a
+    }
+    expect(await base.callTryCatch(noError, 123)).to.deep.equal([undefined, 123])
+    expect(await base.callTryCatch(throwError, 123)).to.deep.equal([123, undefined])
+  })
 })
