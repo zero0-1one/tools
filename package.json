@@ -1,6 +1,6 @@
 {
   "name": "zo-tools",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "some tools",
   "main": "index.js",
   "scripts": {
