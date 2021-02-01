@@ -4,6 +4,21 @@ const expect = chai.expect
 chai.use(require('chai-like'))
 
 describe('baseTools_test', function () {
+  it('randomByAvg', function () {
+    expect(base.randomByAvg(2)).to.be.equal(2)
+
+    let sum = 0
+    let N = 1000
+    let avg = 5.9
+    for (let i = 0; i < N; i++) {
+      let n = base.randomByAvg(avg)
+      sum += n
+      expect(n).to.be.least(5)
+      expect(n).to.be.most(6)
+    }
+    expect(Math.abs(sum / N - avg)).to.be.lessThan(0.1)
+  })
+
   it('mid', function () {
     expect(base.mid(-2, -10, 5)).to.be.equal(-2)
     expect(base.mid(-2, 3, 5)).to.be.equal(3)
