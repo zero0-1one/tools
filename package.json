@@ -17,7 +17,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-like": "^1.1.1",
-    "mocha": "^5.2.0"
+    "mocha": "^10.2.0"
   },
   "author": "zero0-1one",
   "license": "MIT",
